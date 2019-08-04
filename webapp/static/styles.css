@@ -1,0 +1,21 @@
+body { 
+    font-family: Futura; 
+    font-size: 1.1rem;
+    background: #eee; 
+    padding: 1rem; 
+}
+ 
+.body-title {
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.content {
+    margin: 0 auto;
+    width: 70%;
+    line-height: 2;
+}
+
+.content p {
+    text-align: center;
+}
