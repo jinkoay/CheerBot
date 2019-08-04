@@ -30,4 +30,5 @@ for img in soup.findAll('img'):
 file = open("images.txt", "w")
 for img in imgs:
     file.write(img + "\n")
-    
+
+file.close()
