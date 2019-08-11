@@ -35,3 +35,17 @@ def get_tweets(username, lastId):
 
     return tweets
 
+
+def get_follower_ids():
+    
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+
+    api = tweepy.API(auth)
+    ids = []
+    
+    for page in tweepy.Cursor(api.followers_ids, screen_name="CheerPy_").pages():
+        ids.extend(page)
+        time.sleep(1)
+    
+    return ids
