@@ -21,14 +21,14 @@ def get_all_tweets_follower():
     for tweet in tweets:
         print(tweet.text)
 
-def get_tweets(username): 
+def get_tweets(username, lastId): 
           
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
   
     api = tweepy.API(auth) 
 
-    tweets = api.user_timeline(screen_name=username, count=30)
+    tweets = api.user_timeline(screen_name=username, count=30, since_id = lastId)
     
     count = 0
 
