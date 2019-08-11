@@ -14,7 +14,7 @@ def inHr(a, b, interval):
     t2 = datetime.strptime(time2[0:19], "%Y-%m-%d %H:%M:%S")
     duration = t1 - t2
     duration_sec = duration.total_seconds()
-    hours = divmod(duration_sec, 3600)[0] 
+    hours = abs(divmod(duration_sec, 3600)[0]) 
     return hours <= interval
 
 # assuming receiving two strings a and b
