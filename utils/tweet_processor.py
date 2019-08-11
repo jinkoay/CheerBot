@@ -27,11 +27,11 @@ def get_tweets(username, lastId):
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
   
     api = tweepy.API(auth) 
-
-    tweets = api.user_timeline(screen_name=username, count=30, since_id = lastId)
     
-    count = 0
+    if lastId == -1:
+        tweets = api.user_timeline(screen_name=username, count=30)
+    else:
+        tweets = api.user_timeline(screen_name=username, count=30, since_id = lastId)
 
     return tweets
-
 
