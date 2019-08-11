@@ -1,16 +1,37 @@
 import tweepy
 import time
 
-import keys
+from keys import *
 
-auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
-api = tweepy.API(auth)
+def get_all_tweets_follower():
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
-ids = []
-for page in tweepy.Cursor(api.followers_ids, screen_name="McDonalds").pages():
-    ids.extend(page)
-    time.sleep(60)
+    api = tweepy.API(auth)
+    tweets = []
+    ids = []
+    for page in tweepy.Cursor(api.followers_ids, screen_name="CheerPy_").pages():
+        ids.extend(page)
+        time.sleep(1)
 
-print(len(ids))
+    for id in ids: 
+        tweets.append(get_tweets(id))
+
+    for tweet in tweets:
+        print(tweet.text)
+
+def get_tweets(username): 
+          
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+  
+    api = tweepy.API(auth) 
+
+    tweets = api.user_timeline(screen_name=username, count=30)
+    
+    count = 0
+
+    return tweets
+
+
