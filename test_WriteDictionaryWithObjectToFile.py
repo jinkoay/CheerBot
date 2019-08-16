@@ -1,23 +1,29 @@
 from datetime import datetime
 import pickle
-time1 = "2020-03-01 00:00:00.758604"
-time2 = "2020-02-28 22:59:59.944674"
-t1 = datetime.strptime(time1[0:19], "%Y-%m-%d %H:%M:%S")
-t2 = datetime.strptime(time2[0:19], "%Y-%m-%d %H:%M:%S")
+from Follower import *
+import random
+times = ["2020-03-01 00:00:00.758604", 
+         "2019-02-28 23:59:59.944674",
+         "8793-02-28 03:59:59.944674",
+         "1434-02-28 06:59:59.944674",
+         "4577-02-28 21:59:59.944674",
+         "1223-02-28 22:59:59.944674",
+         "2023-02-28 22:59:59.944674",
+         "2040-02-28 04:59:59.944674",
+         "2000-02-28 19:59:59.944674",
+         "2620-02-28 07:59:59.944674"]
 
-class Follower:
-    def __init__(self, id, time_stamp, last_tweet_id):
-        self.id = id
-        self.time_stamp = time_stamp
-        self.last_tweet_id = last_tweet_id
-
-follower = Follower(489685, t1, 1234567890)
-
-dictionary = {
-    "123" : "1234567",
-    "1234" : follower
-}
-
+ids = [123, 234, 345, 456, 567, 678, 789, 890, 901, "012"]
+t = times[0]
+t1 = datetime.strptime(times[0][0:19], "%Y-%m-%d %H:%M:%S")
+# t2 = datetime.strptime(times[1][0:19], "%Y-%m-%d %H:%M:%S")
+followers = []
+dictionary = {}
+for i in range(len(times)):
+    time = times[i]
+    id = ids[i]
+    key = "$" + str(i)
+    dictionary.update({key: Follower(id, time, random.randint(0, 123456789))})
 
 '''
 proof of concept for writing and accessing the file with
@@ -28,5 +34,12 @@ pickle.dump(dictionary,f)
 f.close()
 
 dict = pickle.load(open("dictionary.pkl", "rb"))
-print(dict.get("123"))
-print(dict.get("1234").id)
+
+
+print(type(dict))
+for key in dict:
+    print(key, ",", dict.get(key).id, ",", dict.get(key).time_stamp, ",", dict.get(key).last_tweet_id)
+#  id, time_stamp, last_tweet_id
+
+
+

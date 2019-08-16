@@ -32,3 +32,4 @@ def run():
         file.write(img + "\n")
     
     file.close()
+run()
