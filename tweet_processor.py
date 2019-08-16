@@ -69,6 +69,7 @@ def reply_to_tweet(user_id, tweet_id):
     
     with open('images.txt', 'r') as fp:
         for line in fp:
+            line = line.strip()
             imageLocs.append(line)
 
     
@@ -76,7 +77,7 @@ def reply_to_tweet(user_id, tweet_id):
     size = len(imageLocs)
     choose = random.randint(0, size - 1)
     reply = imageLocs[choose]    
-    
+
     filename = 'temp.jpg'
     request = requests.get(reply, stream=True)
     if request.status_code == 200:
