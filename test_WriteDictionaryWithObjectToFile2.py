@@ -1,14 +1,16 @@
 from datetime import datetime
 import pickle
 from Follower import *
+times = {"2020-03-01 00:00:00.758604" }
 time1 = "2020-03-01 00:00:00.758604"
 time2 = "2020-02-28 22:59:59.944674"
-t1 = datetime.strptime(time1[0:19], "%Y-%m-%d %H:%M:%S")
+
+t1 = datetime.strptime(times[0][0:19], "%Y-%m-%d %H:%M:%S")
 t2 = datetime.strptime(time2[0:19], "%Y-%m-%d %H:%M:%S")
 
 followers = []
 followers.append(Follower(123, t1, 1234567890))
-followers.append(Follower(234, t1, 1234567890))
+followers.append(Follower(234, t2, 1234567890))
 followers.append(Follower(345, t1, 1234567890))
 followers.append(Follower(456, t1, 1234567890))
 followers.append(Follower(567, t1, 1234567890))
@@ -42,7 +44,7 @@ dict = pickle.load(open("dictionary.pkl", "rb"))
 
 print(type(dict))
 for key in dict:
-    print(key, ",", dict.get(key).id), ",", dict.get(key).key.time_stamp, ",", dict.get(key).key.last_tweet_id)
+    print(key, ",", dict.get(key).id, ",", dict.get(key).key.time_stamp, ",", dict.get(key).key.last_tweet_id)
 #  id, time_stamp, last_tweet_id
 
 
