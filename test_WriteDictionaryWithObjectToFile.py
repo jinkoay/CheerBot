@@ -18,6 +18,7 @@ ids = [123, 234, 345, 456, 567, 678, 789, 890, 901, "012"]
 '''
 building the dictionary/mapping from an key value to the follower
 '''
+
 followers = []
 dictionary = {}
 for i in range(len(times)):
