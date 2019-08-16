@@ -14,13 +14,14 @@ times = ["2020-03-01 00:00:00.758604",
          "2620-02-28 07:59:59.944674"]
 
 ids = [123, 234, 345, 456, 567, 678, 789, 890, 901, "012"]
-t = times[0]
-t1 = datetime.strptime(times[0][0:19], "%Y-%m-%d %H:%M:%S")
-# t2 = datetime.strptime(times[1][0:19], "%Y-%m-%d %H:%M:%S")
+
+'''
+building the dictionary/mapping from an key value to the follower
+'''
 followers = []
 dictionary = {}
 for i in range(len(times)):
-    time = times[i]
+    time = datetime.strptime(times[i][0:19], "%Y-%m-%d %H:%M:%S")
     id = ids[i]
     key = "$" + str(i)
     dictionary.update({key: Follower(id, time, random.randint(0, 123456789))})
@@ -42,4 +43,4 @@ for key in dict:
 #  id, time_stamp, last_tweet_id
 
 
-
+f.close()
