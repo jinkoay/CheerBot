@@ -7,22 +7,20 @@ filename = 'data.pkl'
 
 def get_follower_info():
     try:
-        dict = pickle.load(open(filename, "rb"))
-        # print(dict)
-        return dict
+        id_to_follower = pickle.load(open(filename, "rb"))
+        # print(id_to_follower)
+        return id_to_follower
     except IOError:
-        sys.stderr.write("Could not find read file. Abort.\n")
-        exit()
-    
+        sys.stderr.write("Could not find read file.\n")
+        return {}
 
-
-def store_follower_info(dict):
+def store_follower_info(id_to_follower):
     # if not os.path.isfile(filename):
     #     with open(filename,'wb') as file:
     #         pickle.dump(dict, file)
     #     file.close() 
     f = open(filename, 'wb')
-    pickle.dump(dict,f)
+    pickle.dump(id_to_follower,f)
     f.close()
 
 get_follower_info()
