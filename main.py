@@ -7,7 +7,6 @@ from keys.ibm_keys import *
 import datetime
 import time
 
-
 # tweets = get_tweets('youresadlikeme', -1)
 # print(len(tweets))
 # print(find_sad_id(tweets))
@@ -35,7 +34,7 @@ while True:
                 timestamp = follower.timestamp
 
                 if sad_id != -1:
-                    retweet_sad_post(id, sad_id)
+                    reply_to_tweet(id, sad_id)
                     timestamp = cur_date
 
                 if len(tweets) == 0:
@@ -53,7 +52,7 @@ while True:
             timestamp = 0
 
             if sad_id != -1:
-                retweet_sad_post(id, sad_id)
+                reply_to_tweet(id, sad_id)
                 timestamp = cur_date
 
             if len(tweets) == 0:
