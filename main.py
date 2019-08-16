@@ -24,14 +24,16 @@ while True:
     user_ids = get_follower_ids()
 
     for id in user_ids:
+        print("id: " + str(id))
+
         if id in id_to_follower:
             follower = id_to_follower[id]
 
-            if filterToNotSpam(follower.time_stamp, cur_date):
+            if filterToNotSpam(str(follower.time_stamp), str(cur_date)):
                 tweets = get_tweets(id, follower.last_tweet_id)
 
                 sad_id = find_sad_id(tweets)
-                timestamp = follower.timestamp
+                timestamp = follower.time_stamp
 
                 if sad_id != -1:
                     reply_to_tweet(id, sad_id)
@@ -49,7 +51,7 @@ while True:
             tweets = get_tweets(id, -1)
 
             sad_id = find_sad_id(tweets)
-            timestamp = 0
+            timestamp = datetime.datetime(1999, 1, 1, 0, 0, 0)
 
             if sad_id != -1:
                 reply_to_tweet(id, sad_id)
@@ -64,5 +66,6 @@ while True:
             id_to_follower[id] = follower
 
     store_follower_info(id_to_follower)
-    time.sleep(300) # Pause for 5 minutes
-    break
+    time.sleep(60) # Pause for 5 minutes
+
+ 

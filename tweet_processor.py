@@ -25,12 +25,15 @@ def get_all_tweets_follower():
     for tweet in tweets:
         print(tweet.text)
 
-def get_tweets(username, lastId): 
+def get_tweets(user_id, lastId): 
           
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
   
     api = tweepy.API(auth) 
+
+    username = api.get_user(user_id).screen_name
+    print('username: ' + username)
     
     if lastId == -1:
         tweets = api.user_timeline(screen_name=username, count=30)
@@ -91,6 +94,3 @@ def reply_to_tweet(user_id, tweet_id):
         print("Unable to download image")
 
     #api.update_status("@"+ username + " " + reply, tweet_id)
-    
-
-reply_to_tweet(1132848667092803584, 1133213334302527494)

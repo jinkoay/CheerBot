@@ -9,7 +9,7 @@ interval = <time in hours>
 return true if the time difference is 
 less than or equal to interval
 '''
-def inHr(a, b, interval):
+def inHr(time1, time2, interval):
     t1 = datetime.strptime(time1[0:19], "%Y-%m-%d %H:%M:%S")
     t2 = datetime.strptime(time2[0:19], "%Y-%m-%d %H:%M:%S")
     duration = t1 - t2
@@ -23,4 +23,4 @@ def inHr(a, b, interval):
 # yyyy-mm-dd HH:MM:SS
 
 def filterToNotSpam(a, b):
-    return inHr(a, b, 24.0)
+    return not inHr(a, b, 24.0)
