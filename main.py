@@ -65,5 +65,5 @@ while True:
             id_to_follower[id] = follower
 
     store_follower_info(id_to_follower)
-    time.sleep(5)
+    time.sleep(300) # Pause for 5 minutes
     break
