@@ -10,8 +10,8 @@ return true if the time difference is
 less than or equal to interval
 '''
 def inHr(a, b, interval):
-    t1 = datetime.strptime(time1[0:19], "%Y-%m-%d %H:%M:%S")
-    t2 = datetime.strptime(time2[0:19], "%Y-%m-%d %H:%M:%S")
+    t1 = datetime.strptime(a[0:19], "%Y-%m-%d %H:%M:%S")
+    t2 = datetime.strptime(b[0:19], "%Y-%m-%d %H:%M:%S")
     duration = t1 - t2
     duration_sec = duration.total_seconds()
     hours = divmod(duration_sec, 3600)[0] 
