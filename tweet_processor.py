@@ -1,6 +1,7 @@
 import tweepy
 import time
 import random
+import os
 
 from keys.keys import *
 from scraper import *
@@ -65,24 +66,30 @@ def reply_to_tweet(user_id, tweet_id):
 
     username = api.get_user(user_id).screen_name
     
-    try:
-        fp = open("images.txt", 'r')
-        
-        line = fp.readline
-        imageLocs.append(line)
-
-        while line:
-            line = fp.readline
+    
+    with open('images.txt', 'r') as fp:
+        for line in fp:
             imageLocs.append(line)
 
-    finally:
-        fp.close()
+    
     
     size = len(imageLocs)
     choose = random.randint(0, size - 1)
     reply = imageLocs[choose]    
+    
+    filename = 'temp.jpg'
+    request = requests.get(reply, stream=True)
+    if request.status_code == 200:
+        with open(filename, 'wb') as image:
+            for chunk in request:
+                image.write(chunk)
 
-    api.update_status("@<"+ username + "> " + reply, tweet_id)
+        api.update_with_media(filename, status= "@" + username, in_reply_to_status_id = tweet_id)
+        os.remove(filename)
+    else:
+        print("Unable to download image")
+
+    #api.update_status("@"+ username + " " + reply, tweet_id)
     
 
 reply_to_tweet(1132848667092803584, 1133213334302527494)
