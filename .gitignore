@@ -4,3 +4,5 @@ keys/keys.py
 *.pyc
 .DS_Store
 *.pkl
+images.txt
+temp.jpeg
