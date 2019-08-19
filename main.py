@@ -44,9 +44,13 @@ while True:
                     if len(tweets) == 0:
                         continue
 
+                    print('pass length of tweets')
+
                     sad_id = find_sad_id(tweets)
                     # default timestamp value
                     timestamp = follower.time_stamp
+
+                    print('sad id: ' + str(sad_id))
 
                     if sad_id != -1:
                         reply_to_tweet(id, sad_id)
@@ -74,7 +78,7 @@ while True:
 
     # unfollow people who unfollowed us
     for id in friends:
-        if not is_following(id, 'CheerPy_'):
+        if not is_follower('CheerPy_', id):
             unfollow_user(id)
 
     store_follower_info(id_to_follower)

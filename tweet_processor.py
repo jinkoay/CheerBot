@@ -80,7 +80,8 @@ def get_friends():
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
     api = tweepy.API(auth)
-    api.friends_ids('CheerPy_') 
+    return api.friends_ids(screen_name='CheerPy_')
+
 
 def is_following(this, other):
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -88,8 +89,17 @@ def is_following(this, other):
 
     api = tweepy.API(auth)
 
-    source, target = api.show_friendship(source_screen_name=this, target_id=other)
-    return other.following
+    us, them = api.show_friendship(source_screen_name=this, target_id=other)
+    return us.following
+
+def is_follower(this, other):
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+
+    api = tweepy.API(auth)
+
+    us, them = api.show_friendship(source_screen_name=this, target_id=other)
+    return them.following
 #  
 
 def reply_to_tweet(user_id, tweet_id):
