@@ -2,6 +2,7 @@ import tweepy
 import time
 import random
 import os
+import json
 
 from keys.keys import *
 from scraper import *
@@ -86,7 +87,9 @@ def is_following(this, other):
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
     api = tweepy.API(auth)
-    return api.exists_friendship(this, other) 
+
+    source, target = api.show_friendship(source_screen_name=this, target_id=other)
+    return other.following
 #  
 
 def reply_to_tweet(user_id, tweet_id):
