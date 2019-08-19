@@ -21,48 +21,96 @@ id_to_follower = {}
 while True:
     cur_date = datetime.datetime.now()
     id_to_follower = get_follower_info()
-    user_ids = get_follower_ids()
+    friends = get_friends()
+    follower_ids = get_follower_ids()
 
-    for id in user_ids:
-        if id in id_to_follower:
-            follower = id_to_follower[id]
+    for id in follower_ids:
+        if not is_following('CheerPy_', id):
+            follow_user(id)
+        else:
+            print("id: " + str(id))
 
-            if filterToNotSpam(follower.time_stamp, cur_date):
-                tweets = get_tweets(id, follower.last_tweet_id)
+            if id in id_to_follower:
+                follower = id_to_follower[id]
 
-                sad_id = find_sad_id(tweets)
-                timestamp = follower.timestamp
+                if filterToNotSpam(str(follower.time_stamp), str(cur_date)):
+                    print('filter pass')
+                    tweets = get_tweets(id, follower.last_tweet_id)
 
-                if sad_id != -1:
-                    reply_to_tweet(id, sad_id)
-                    timestamp = cur_date
+                    # if current follower has no new tweets, skip
+                    if len(tweets) == 0:
+                        continue
 
-                if len(tweets) == 0:
-                    last_tweet_id = -1
-                else:
+                    sad_id = find_sad_id(tweets)
+                    timestamp = follower.time_stamp
+
+                    if sad_id != -1:
+                        reply_to_tweet(id, sad_id)
+                        timestamp = cur_date
+
                     last_tweet_id = tweets[0].id
+
+                    follower = Follower(id, timestamp, last_tweet_id)
+                    id_to_follower[id] = follower
+
+            # new followers
+            else:
+                # get all tweets
+                tweets = get_tweets(id, -1)
+
+                # if the new follower has no tweets, don't store them
+                if len(tweets) == 0:
+                    continue
+
+                last_tweet_id = tweets[0].id
+                timestamp = datetime.datetime(1999, 1, 1, 0, 0, 0)
 
                 follower = Follower(id, timestamp, last_tweet_id)
                 id_to_follower[id] = follower
 
-        else:
-            tweets = get_tweets(id, -1)
 
-            sad_id = find_sad_id(tweets)
-            timestamp = 0
+    # for id in follower_ids:
+        # print("id: " + str(id))
 
-            if sad_id != -1:
-                reply_to_tweet(id, sad_id)
-                timestamp = cur_date
+        # if id in id_to_follower:
+        #     follower = id_to_follower[id]
 
-            if len(tweets) == 0:
-                last_tweet_id = -1
-            else:
-                last_tweet_id = tweets[0].id
+        #     if filterToNotSpam(str(follower.time_stamp), str(cur_date)):
+        #         print('filter pass')
+        #         tweets = get_tweets(id, follower.last_tweet_id)
 
-            follower = Follower(id, timestamp, last_tweet_id)
-            id_to_follower[id] = follower
+        #         # if current follower has no new tweets, skip
+        #         if len(tweets) == 0:
+        #             continue
+
+        #         sad_id = find_sad_id(tweets)
+        #         timestamp = follower.time_stamp
+
+        #         if sad_id != -1:
+        #             reply_to_tweet(id, sad_id)
+        #             timestamp = cur_date
+
+        #         last_tweet_id = tweets[0].id
+
+        #         follower = Follower(id, timestamp, last_tweet_id)
+        #         id_to_follower[id] = follower
+
+        # # new followers
+        # else:
+        #     # get all tweets
+        #     tweets = get_tweets(id, -1)
+
+        #     # if the new follower has no tweets, don't store them
+        #     if len(tweets) == 0:
+        #         continue
+
+        #     last_tweet_id = tweets[0].id
+        #     timestamp = datetime.datetime(1999, 1, 1, 0, 0, 0)
+
+        #     follower = Follower(id, timestamp, last_tweet_id)
+        #     id_to_follower[id] = follower
 
     store_follower_info(id_to_follower)
-    time.sleep(300) # Pause for 5 minutes
-    break
+    time.sleep(60) # Pause for 5 minutes
+
+ 
