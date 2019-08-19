@@ -25,16 +25,21 @@ def get_all_tweets_follower():
     for tweet in tweets:
         print(tweet.text)
 
-def get_tweets(username, lastId): 
+def get_tweets(user_id, lastId): 
           
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
   
-    api = tweepy.API(auth) 
+    api = tweepy.API(auth)
+
+    username = api.get_user(user_id).screen_name
+    print('username: ' + username)
     
     if lastId == -1:
+        print('getting all tweets')
         tweets = api.user_timeline(screen_name=username, count=30)
     else:
+        print('getting since')
         tweets = api.user_timeline(screen_name=username, count=30, since_id = lastId)
 
     return tweets
@@ -53,6 +58,36 @@ def get_follower_ids():
         time.sleep(1)
     
     return ids
+
+# Added by Jin 8/19
+def follow_user(user_id):
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+
+    api = tweepy.API(auth)
+    api.create_friendship(user_id)
+
+def unfollow_user(user_id):
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+
+    api = tweepy.API(auth)
+    api.destroy_friendship(user_id)
+
+def get_friends():
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+
+    api = tweepy.API(auth)
+    api.friends_ids('CheerPy_') 
+
+def is_following(this, other):
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+
+    api = tweepy.API(auth)
+    return api.exists_friendship(this, other) 
+#  
 
 def reply_to_tweet(user_id, tweet_id):
     
