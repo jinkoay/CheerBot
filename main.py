@@ -27,9 +27,12 @@ while True:
     for id in follower_ids:
         if not is_following('CheerPy_', id):
             follow_user(id)
+
+        # mutual followers
         else:
             print("id: " + str(id))
 
+            # existing follower
             if id in id_to_follower:
                 follower = id_to_follower[id]
 
@@ -42,6 +45,7 @@ while True:
                         continue
 
                     sad_id = find_sad_id(tweets)
+                    # default timestamp value
                     timestamp = follower.time_stamp
 
                     if sad_id != -1:
