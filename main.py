@@ -81,49 +81,8 @@ while True:
         if not is_follower('CheerPy_', id):
             unfollow_user(id)
 
+    print('running...')
     store_follower_info(id_to_follower)
-    time.sleep(60) # Pause for 5 minutes
-
-
-    # for id in follower_ids:
-    # print("id: " + str(id))
-
-    # if id in id_to_follower:
-    #     follower = id_to_follower[id]
-
-    #     if filterToNotSpam(str(follower.time_stamp), str(cur_date)):
-    #         print('filter pass')
-    #         tweets = get_tweets(id, follower.last_tweet_id)
-
-    #         # if current follower has no new tweets, skip
-    #         if len(tweets) == 0:
-    #             continue
-
-    #         sad_id = find_sad_id(tweets)
-    #         timestamp = follower.time_stamp
-
-    #         if sad_id != -1:
-    #             reply_to_tweet(id, sad_id)
-    #             timestamp = cur_date
-
-    #         last_tweet_id = tweets[0].id
-
-    #         follower = Follower(id, timestamp, last_tweet_id)
-    #         id_to_follower[id] = follower
-
-    # # new followers
-    # else:
-    #     # get all tweets
-    #     tweets = get_tweets(id, -1)
-
-    #     # if the new follower has no tweets, don't store them
-    #     if len(tweets) == 0:
-    #         continue
-
-    #     last_tweet_id = tweets[0].id
-    #     timestamp = datetime.datetime(1999, 1, 1, 0, 0, 0)
-
-    #     follower = Follower(id, timestamp, last_tweet_id)
-    #     id_to_follower[id] = follower
+    time.sleep(60) # Pause for 1 minute
 
  

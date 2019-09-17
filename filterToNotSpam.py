@@ -24,4 +24,4 @@ def inHr(time1, time2, interval):
 # yyyy-mm-dd HH:MM:SS
 
 def filterToNotSpam(a, b):
-    return not inHr(a, b, 24.0)
+    return not inHr(a, b, 0.05)
